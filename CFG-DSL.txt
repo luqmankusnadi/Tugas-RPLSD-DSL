@@ -1,0 +1,45 @@
+** tambahResep -> add_recipe <namaResep> dengan_bahan <listBahanBaku> dengan_harga <harga>
+listBahanBaku -> Seq(<BahanBakus>)
+BahanBakuS -> <BahanBakuS>, <BahanBakuS> 
+BahanBakuS -> <bahanBaku> : <kuantitas>  
+kuantitas -> <double> <satuan>
+satuan -> gram
+satuan -> kiloGram
+satuan -> miliLiter
+satuan -> liter
+satuan -> buah
+satuan -> potong
+satuan -> ikat
+satuan -> sdm
+
+note: 	<namaResep> adalah nama resep makanan yang unik
+	<harga> adalah harga dari makanan (bentuk double)
+
+** ubahResep -> change_recipe <namaResep> <opsi_perubahan>
+opsi_perubahan -> <opsi_perubahan> <opsi_perubahan>
+opsi_perubahan -> dengan_bahan <listBahanBaku>
+opsi_perubahan -> dengan_harga <harga>
+
+** hapusResep -> delete_recipe <namaResep>
+
+** lihatResep -> read_recipe <namaResep>
+
+** tambahBahanBaku -> add_bahanbaku <BahanBaku> <kuantitas>
+
+** ubahBahanBaku -> change_bahanbaku <BahanBaku> <kuantitas>
+
+** kurangiBahanBaku -> reduce_bahanbaku <BahanBaku> <kuantitas>
+
+** lihatBahanBaku -> read_bahanbaku <BahanBaku> <kuantitas>
+
+** lihatSemuaBahanBaku -> read_all_bahanbaku
+
+** simpanTransaksi -> save_transaksi <Waktu> <listResep_Jumlah>
+Waktu -> <tanggal> <bulan> <tahun>
+listResep_Jumlah -> Seq(<Resep_Jumlahs>)
+Resep_Jumlahs -> <Resep_Jumlahs>, <Resep_Jumlahs>
+Resep_Jumlahs -> <namaResep> <integer>
+
+** lihatPenggunaanBahanBakuDalamRentang -> lihatBahan_Rentang dari <Waktu> sampai <Waktu>
+
+** lihatTransaksiResepDalamRentang -> lihatTransaksiResep_Rentang dari <Waktu> sampai <Waktu>
