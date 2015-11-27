@@ -1,24 +1,47 @@
 package org.rplsd.condalang.util
 
-import org.rplsd.condalang.data.{recipe, kuantitas}
+import com.mongodb.casbah.{MongoClient, MongoCollection}
+import org.rplsd.condalang.data._
 import scala.reflect.ClassTag
 
 /**
   * Created by Luqman on 11/27/2015.
   */
 object CondaImplicit {
+
+  implicit lazy val dBConnection = new DBConnection()
+
   implicit class DoubleImplicits (l: Double) {
-    def gram = kuantitas(l,kuantitas.gram)
-    def kilogram = kuantitas(l*1000,kuantitas.gram)
-    def mililiter = kuantitas(l,kuantitas.milliliter)
-    def liter = kuantitas(l*1000,kuantitas.milliliter)
-    def buah = kuantitas(l,kuantitas.buah)
+    def gram = Kuantitas(l,Kuantitas.gram)
+    def kilogram = Kuantitas(l*1000,Kuantitas.gram)
+    def mililiter = Kuantitas(l,Kuantitas.milliliter)
+    def liter = Kuantitas(l*1000,Kuantitas.milliliter)
+    def buah = Kuantitas(l,Kuantitas.buah)
+    def potong = Kuantitas(l,Kuantitas.potong)
   }
   implicit def int2Double (l:Int) = DoubleImplicits(l.toDouble)
-  implicit def string2Recipe (s:String) = recipe(s,Map(),0)
-  implicit def bahanAndKuantitas2Map (t:Tuple2[String,kuantitas]) = Map(t)
+  implicit def int2Waktu (l:Int) = Waktu(l,0,0)
 
-  implicit class MapImplicits (l:Map[String,kuantitas]) {
-    def +(t:Tuple2[String,kuantitas]) = l.updated(t._1,t._2)
+  implicit class StringImplicits (s: String) {
+    def dengan_bahan (bahan2: Map[String,Kuantitas]) = Recipe(s, Some(bahan2), None)
+    def dengan_harga (harga2: Double) = Recipe(s, None, Some(harga2))
+    def sebanyak(jumlah: Int) = RecipeJumlah(s,jumlah)
+    def sebanyak(kuantitas: Kuantitas) = BahanBaku(s,kuantitas)
   }
+
+  implicit class PrettyRecipe(r: Recipe) {
+    def pretty_print () : Unit = {
+      //TODO
+    }
+  }
+
+}
+
+class DBConnection {
+  implicit lazy val mongoClient = MongoClient("localhost", 27017)
+  implicit lazy val db = mongoClient("conda")
+  implicit lazy val recipeColl = db("resep")
+  implicit lazy val bahanBakuColl = db("bahan_baku")
+  implicit lazy val transactionColl = db("transaction")
+  implicit lazy val logBahanBakuColl = db("log_bahan_baku")
 }
