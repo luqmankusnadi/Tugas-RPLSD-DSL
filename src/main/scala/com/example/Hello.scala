@@ -42,7 +42,7 @@ object HelloSimpleMain {
         "sultan" -> 1.potong,
         "kambing" -> 1.potong
       ) dengan_harga 10000
-      )
+    )
 
     save transaksi(27 november 1994) dengan_transaksi Seq("surai kambing" sebanyak 9)
 
