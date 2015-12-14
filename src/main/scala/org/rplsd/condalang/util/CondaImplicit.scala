@@ -28,17 +28,11 @@ object CondaImplicit {
     def sebanyak(jumlah: Int) = RecipeJumlah(s,jumlah)
     def sebanyak(kuantitas: Kuantitas) = BahanBaku(s,kuantitas)
   }
-
-  implicit class PrettyRecipe(r: Recipe) {
-    def pretty_print () : Unit = {
-      //TODO
-    }
-  }
-
 }
 
 class DBConnection {
-  implicit lazy val mongoClient = MongoClient("localhost", 27017)
+  var host = "localhost:27017"
+  implicit lazy val mongoClient = MongoClient(host)
   implicit lazy val db = mongoClient("conda")
   implicit lazy val recipeColl = db("resep")
   implicit lazy val bahanBakuColl = db("bahan_baku")

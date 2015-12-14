@@ -23,6 +23,8 @@ object HelloSimpleMain {
     import org.rplsd.condalang.util.CondaImplicit._
     import org.rplsd.condalang.command._
 
+    dBConnection host = "localhost:12345"
+
     add bahan_baku ("tirai" sebanyak 10.buah)
     add bahan_baku ("sultan" sebanyak 10.potong)
     add bahan_baku ("kambing" sebanyak 10.potong)
